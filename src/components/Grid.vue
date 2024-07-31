@@ -14,6 +14,10 @@ function play(n) {
     }
 }
 
+function reset() {
+    this.Elements = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+}
+
 </script>
 <template>
     <div class="grid text-center" style="margin: 50px auto; max-width: 400px;">
@@ -25,6 +29,9 @@ function play(n) {
     </div>
     <div class="text-center" style="font-weight: bold;">
         Au tour de : {{ player }}
+    </div>
+    <div class="text-center mt-4">
+        <button class="btn btn-secondary" style="border: 1rem; font-weight: bold;" @click="reset()">RESET</button>
     </div>
 </template>
 <style scoped>
