@@ -2,20 +2,49 @@
 import { ref } from 'vue'
 const Elements = ref([' ',' ',' ',' ',' ',' ',' ',' ',' ']);
 const player = ref('X');
+const isWon = ref(false);
+
+function checkWin() {
+    for (const i of [0,3,6]) {
+        if (this.Elements[i] === this.Elements[i+1] && this.Elements[i+1] === this.Elements[i+2] && this.Elements[i] != ' ') {
+            this.isWon = true;
+        }
+    }
+    for (const i of [0,1,2]) {
+        if (this.Elements[i] === this.Elements[i+3] && this.Elements[i+3] === this.Elements[i+6] && this.Elements[i] != ' ') {
+            this.isWon = true;
+        }
+    }
+    if (this.Elements[0] === this.Elements[4] && this.Elements[4] === this.Elements[8] && this.Elements[0] != ' ') {
+        this.isWon = true;
+    }
+    if (this.Elements[6] === this.Elements[4] && this.Elements[4] === this.Elements[2] && this.Elements[6] != ' ') {
+        this.isWon = true;
+    }
+}
 
 function play(n) {
-    if (this.player === 'X' && !['X','O'].includes(this.Elements[n])) {
-        this.Elements[n] = 'X';
-        this.player = 'O';
-    }
-    else if (this.player === 'O' && !['X','O'].includes(this.Elements[n])) {
-        this.Elements[n] = 'O';
-        this.player = 'X';
+    if (this.isWon === false) {
+        if (this.player === 'X' && !['X','O'].includes(this.Elements[n])) {
+            this.Elements[n] = 'X';
+            this.checkWin();
+            if (this.isWon === false) {
+                this.player = 'O';
+            }
+        }
+        else if (this.player === 'O' && !['X','O'].includes(this.Elements[n])) {
+            this.Elements[n] = 'O';
+            this.checkWin();
+            if (this.isWon === false) {
+                this.player = 'X';
+            }
+        }
     }
 }
 
 function reset() {
     this.Elements = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    this.isWon = false
 }
 
 </script>
@@ -27,11 +56,14 @@ function reset() {
             </div>
         </div>
     </div>
-    <div class="text-center" style="font-weight: bold;">
+    <div class="text-center" style="font-weight: bold;" v-if="!isWon">
         Au tour de : {{ player }}
     </div>
+    <div class="text-center" style="font-weight: bold;" v-if="isWon">
+        {{ player }} a gagné !
+    </div>
     <div class="text-center mt-4">
-        <button class="btn btn-secondary" style="border: 1rem; font-weight: bold;" @click="reset()">RESET</button>
+        <button class="btn btn-primary" style="border: 1rem; font-weight: bold;" @click="reset()">RESET</button>
     </div>
 </template>
 <style scoped>
