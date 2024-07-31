@@ -51,7 +51,9 @@ function reset() {
 <template>
     <div class="grid text-center" style="margin: 50px auto; max-width: 400px;">
         <div class="row no-gutters">
-            <div class="case col-4 p-3" v-for="n in [0,1,2,3,4,5,6,7,8]" style="border: 0.1rem solid; height: 8rem;" @click="play(n)">
+            <div class="case col-4 p-3" v-for="n in [0,1,2,3,4,5,6,7,8]" style="height: 8rem;" @click="play(n)"
+            :class="{'border_top' : [0,1,2].includes(n), 'border_bottom' : [6,7,8].includes(n), 'border_left' : [0,3,6].includes(n), 'border_right' : [2,5,8].includes(n)}"
+            >
                 {{ Elements[n] }}
             </div>
         </div>
@@ -73,5 +75,18 @@ function reset() {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+    .border_top {
+        border-bottom: 0.1rem solid;
+    }
+    .border_bottom {
+        border-top: 0.1rem solid;
+    }
+    .border_left {
+        border-right: 0.1rem solid;
+    }
+    .border_right {
+        border-left : 0.1rem solid;
+
     }
 </style>
