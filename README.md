@@ -1,6 +1,6 @@
 # TicTacToe_vue
 
-Bienvenue sur mon projet de Tic Tac Toe en Vue JS ! 
+Welcome to my first Tic Tac Toe project with VueJS ! 
 
 ## Recommended IDE Setup
 
